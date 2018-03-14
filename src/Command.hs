@@ -23,10 +23,16 @@ doEvalCommand :: Command -> Todos -> IO (Command, Todos)
 doEvalCommand c todos = do
   printResults c todos
   return $ evalCommand c todos
+commands :: [String]
+commands = [  "list", "get id", "toggle id", "rm id", "quit"]
+printCommandList :: IO()
+printCommandList = putStrLn $ unlines commands
 
 doSafeEvalCommand :: Maybe Command -> Todos -> IO(Maybe Command, Todos)
 doSafeEvalCommand Nothing todos = do
   putStrLn "Invalid command"
+  putStrLn "List of valid commands: "
+  printCommandList
   return (Nothing, todos)
 
 doSafeEvalCommand (Just cmd) todos = do
@@ -41,7 +47,7 @@ printResults (GetTodo i) todos = do
 printResults ListTodos todos = do
   putStrLn $ listTodos todos
   return ()
-printResults _ _ = putStrLn "OK." >> return ()
+printResults _ _ = putStrLn "OK." 
 
 showMaybeTodo :: Maybe Todo -> String
 showMaybeTodo Nothing  = "Not found"

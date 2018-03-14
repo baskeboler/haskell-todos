@@ -1,5 +1,5 @@
-module Lib
-     where
+module Lib where
+import Data.DateTime
 
 someFunc :: IO ()
 someFunc = putStrLn "someFunc"
@@ -11,6 +11,8 @@ data TodoData = TodoData
             } deriving (Show, Eq)
 
 data Todo = PendingTodo TodoData | CompletedTodo TodoData deriving (Show, Eq)
+
+data TimedTodo = TimedTodo DateTime Todo
 
 getId :: Todo -> Int
 getId (PendingTodo (TodoData todoId _))   = todoId
